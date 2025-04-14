@@ -4,7 +4,6 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Futurion Partners',
   description: 'Seeking the future beyond boundaries',
-  generator: 'v0.dev',
 }
 
 export default function RootLayout({
