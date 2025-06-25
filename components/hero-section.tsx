@@ -24,7 +24,7 @@ export default function HeroSection() {
 
       {/* Contenido */}
       <div className="max-w-5xl mx-auto text-center z-10 px-4">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-[#FFFCF2] mb-8">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-light tracking-tight text-[#FFFCF2] mb-8">
           Soluciones tecnológicas innovadoras para tu negocio
         </h1>
         <p className="text-xl md:text-2xl lg:text-3xl text-[#FFFCF2] mb-12 max-w-4xl mx-auto">
@@ -42,7 +42,7 @@ export default function HeroSection() {
           />
           <Button
             type="submit"
-            className="bg-[#780000] hover:bg-[#5d0000] text-[#FFFCF2] h-14 px-8 rounded-full font-medium"
+            className="bg-[#A51C30] hover:bg-[#8A1727] text-[#FFFCF2] h-14 px-8 rounded-full font-medium"
           >
             Únete a la Lista
           </Button>

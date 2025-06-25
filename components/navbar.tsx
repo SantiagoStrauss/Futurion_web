@@ -47,8 +47,9 @@ export default function Navbar() {
       `}
     >
       {/* Logo o título */}
-      <Link href="/" className={`text-xl font-semibold ${textColor}`}>
-        Futurion Partners
+      <Link href="/" className={`flex items-center ${textColor}`}>
+        <img src="/3.png" alt="Futurion Partners Logo" className="h-12 w-12 object-contain mr-2" />
+        <span className="text-xl font-semibold">Futurion Partners</span>
       </Link>
 
       {/* Navegación en Desktop */}
@@ -66,7 +67,7 @@ export default function Navbar() {
 
       {/* Botón Desktop */}
       <div className="hidden md:block">
-        <Button className="bg-red-700 hover:bg-red-800 text-white">
+        <Button className="bg-primary hover:bg-primary/80 text-white">
           Contactar
         </Button>
       </div>

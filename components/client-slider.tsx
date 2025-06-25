@@ -49,13 +49,13 @@ export default function ClientSlider() {
   return (
     <section className="py-16 bg-[#FFFCF2] relative">
       {/* Subtle background elements */}
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#780000]/20 to-transparent"></div>
-      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#780000]/20 to-transparent"></div>
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#A51C30]/20 to-transparent"></div>
+      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#A51C30]/20 to-transparent"></div>
 
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-extralight tracking-wider mb-4 text-black">Nuestros Clientes</h2>
-          <div className="w-20 h-[1px] bg-gradient-to-r from-transparent via-[#780000]/40 to-transparent mx-auto"></div>
+          <h2 className="text-2xl md:text-3xl font-serif font-extralight tracking-wider mb-4 text-black">Nuestros Clientes</h2>
+          <div className="w-20 h-[1px] bg-gradient-to-r from-transparent via-[#A51C30]/40 to-transparent mx-auto"></div>
         </div>
 
         <div ref={containerRef} className="overflow-hidden">

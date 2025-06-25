@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
           <div>
             <Link href="/" className="flex items-center mb-6">
-              <Mountain className="h-8 w-8" />
+              <img src="/3.png" alt="Futurion Partners Logo" className="h-16 w-16" />
               <span className="ml-2 text-xl font-medium">Futurion Partners</span>
             </Link>
             <p className="text-[#FFFCF2]/70 mb-6">
@@ -119,7 +119,7 @@ export default function Footer() {
               <Input
                 type="email"
                 placeholder="Tu email"
-                className="bg-[#111] border-[#333] text-[#FFFCF2] focus:border-[#780000]"
+                className="bg-[#111] border-[#333] text-[#FFFCF2] focus:border-[#A51C30]"
                 required
               />
               <Button className="w-full bg-[#780000] hover:bg-[#5d0000] text-[#FFFCF2]">Suscribirse</Button>

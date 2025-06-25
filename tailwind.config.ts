@@ -19,6 +19,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["'Libre Franklin'", "sans-serif"],
+        serif: ["'Tinos'", "serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -26,7 +30,7 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#780000",
+          DEFAULT: "#A51C30",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
