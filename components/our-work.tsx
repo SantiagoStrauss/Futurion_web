@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
@@ -40,6 +40,16 @@ const projects = [
 export default function OurWork() {
     const [currentIndex, setCurrentIndex] = useState(0)
     const carouselRef = useRef<HTMLDivElement>(null)
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768)
+        }
+        handleResize()
+        window.addEventListener("resize", handleResize)
+        return () => window.removeEventListener("resize", handleResize)
+    }, [])
 
     const nextSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length)
@@ -48,6 +58,8 @@ export default function OurWork() {
     const prevSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length)
     }
+
+    const itemsToDisplay = isMobile ? [0] : [0, 1, 2]
 
     return (
         <section className="py-32 bg-[#FFFCF2] relative overflow-hidden">
@@ -67,7 +79,7 @@ export default function OurWork() {
                 <div className="relative">
                     <div ref={carouselRef} className="overflow-hidden">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {[0, 1, 2].map((offset) => {
+                            {itemsToDisplay.map((offset) => {
                                 const index = (currentIndex + offset) % projects.length
                                 return (
                                     <motion.div
