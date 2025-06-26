@@ -19,11 +19,28 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden pt-20">
-      {/* Fondo con gradiente sutil */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black to-[#0A0A0A] z-0"></div>
+      {/* Contenedor de fondo: agrupa gradiente, video y overlay */}
+      <div className="absolute inset-0 z-0">
+        {/* Gradiente como fallback (se renderiza debajo del video) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black to-[#0A0A0A]" />
+        
+        {/* Video de fondo */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-80"
+        >
+          <source src="https://videos.pexels.com/video-files/3129957/3129957-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+        </video>
+        
+        {/* Overlay oscuro (se renderiza encima del video) */}
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
 
-      {/* Contenido */}
-      <div className="max-w-5xl mx-auto text-center z-10 px-4">
+      {/* Contenido (encima de todo el fondo) */}
+      <div className="max-w-5xl mx-auto text-center z-10 relative px-4">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-light tracking-tight text-[#FFFCF2] mb-8">
           Soluciones tecnológicas innovadoras para tu negocio
         </h1>
@@ -51,4 +68,3 @@ export default function HeroSection() {
     </section>
   )
 }
-

@@ -49,7 +49,7 @@ export default function Navbar() {
       {/* Logo o título */}
       <Link href="/" className={`flex items-center ${textColor}`}>
         <img src="/3.png" alt="Futurion Partners Logo" className="h-12 w-12 object-contain mr-2" />
-        <span className="text-xl font-semibold">Futurion Partners</span>
+        <span className="text-xl font-serif font-semibold">Futurion Partners</span>
       </Link>
 
       {/* Navegación en Desktop */}
@@ -58,7 +58,7 @@ export default function Navbar() {
           <Link
             key={link.name}
             href={link.href}
-            className={linkColor + " transition-colors"}
+            className={linkColor + " transition-colors font-sans"}
           >
             {link.name}
           </Link>
@@ -84,7 +84,7 @@ export default function Navbar() {
           <SheetTitle className="sr-only">Menú principal</SheetTitle>
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between mb-8">
-              <Link href="/" className="text-lg font-medium text-white">
+              <Link href="/" className="text-lg font-serif font-medium text-white">
                 Futurion Partners
               </Link>
             </div>
@@ -94,7 +94,7 @@ export default function Navbar() {
                 <SheetClose asChild key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-lg text-white/90 hover:text-white transition-colors"
+                    className="text-lg font-sans text-white/90 hover:text-white transition-colors"
                   >
                     {link.name}
                   </Link>

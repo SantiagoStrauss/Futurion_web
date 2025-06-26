@@ -37,10 +37,10 @@ export default function BusinessInnovation() {
 					transition={{ duration: 0.5 }}
 					className="mb-16"
 				>
-					<h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight mb-8">
+					<h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-light tracking-tight mb-8">
 						Inventamos y escalamos nuevos negocios
 					</h2>
-					<p className="text-xl md:text-2xl font-light max-w-4xl">
+					<p className="text-xl md:text-2xl font-sans font-light max-w-4xl">
 						Nuestros expertos trabajan con organizaciones establecidas para imaginar, construir y escalar nuevos
 						negocios que prosperan. Equipamos a los equipos de nuestros clientes con el software, herramientas y
 						capacidades que necesitarán para tener éxito por sí mismos.

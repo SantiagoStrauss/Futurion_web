@@ -240,13 +240,13 @@ export default function InteractiveCards() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 text-white">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold tracking-tight mb-6 text-white">
             Constelación de Servicios
           </h2>
           <div className={`w-24 h-0.5 bg-gradient-to-r from-transparent via-red-600 to-transparent mx-auto mb-6 transition-all duration-1000 delay-200 ${
             isVisible ? 'scale-x-100' : 'scale-x-0'
           }`} />
-          <p className={`text-lg sm:text-xl text-white/90 max-w-3xl mx-auto font-light leading-relaxed transition-all duration-1000 delay-400 ${
+          <p className={`text-lg sm:text-xl font-sans text-white/90 max-w-3xl mx-auto font-light leading-relaxed transition-all duration-1000 delay-400 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}>
             Explora nuestro ecosistema tecnológico interconectado.
@@ -288,18 +288,6 @@ export default function InteractiveCards() {
               />
             ))}
           </div>
-        </div>
-
-        {/* Hint - Oculto en móvil */}
-        <div 
-          className={`text-center mt-12 transition-all duration-1000 delay-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          } ${isMobile ? 'hidden' : ''}`}
-        >
-          <p className="text-white/60 text-sm mb-2">
-            Pasa el cursor sobre los servicios
-          </p>
-          <div className="w-5 h-5 border-2 border-red-600/50 rounded-full mx-auto animate-pulse" />
         </div>
 
       </div>
