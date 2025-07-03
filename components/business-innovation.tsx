@@ -41,7 +41,7 @@ export default function BusinessInnovation() {
 						Inventamos y escalamos nuevos negocios
 					</h2>
 					<p className="text-xl md:text-2xl font-sans font-light max-w-4xl">
-						Nuestros expertos trabajan con organizaciones establecidas para imaginar, construir y escalar nuevos
+						Nuestros expertos trabajan con organizaciones para imaginar, construir y escalar nuevos
 						negocios que prosperan. Equipamos a los equipos de nuestros clientes con el software, herramientas y
 						capacidades que necesitarán para tener éxito por sí mismos.
 					</p>

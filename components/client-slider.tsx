@@ -128,7 +128,7 @@ export default function ClientSlider() {
         {/* Header mejorado */}
         <div className="text-center mb-12">
           <motion.h2 
-            className="text-2xl md:text-3xl font-serif font-light tracking-wider mb-4 text-gray-900"
+            className="text-2xl md:text-4xl font-serif font-light tracking-wider mb-4 text-gray-900"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}

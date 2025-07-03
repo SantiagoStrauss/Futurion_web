@@ -240,7 +240,7 @@ export default function InteractiveCards() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-serif font-bold tracking-tight mb-6 text-white">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-serif font-bold tracking-tight mb-6 text-white">
             Constelación de Servicios
           </h2>
           <div className={`w-24 h-0.5 bg-gradient-to-r from-transparent via-red-600 to-transparent mx-auto mb-6 transition-all duration-1000 delay-200 ${
