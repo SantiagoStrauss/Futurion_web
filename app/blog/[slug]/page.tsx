@@ -10,6 +10,8 @@ import { mockBlogData } from "@/lib/mockData"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 
+export const runtime = 'edge'
+
 // Types
 interface SanityImage {
   _type: string;
