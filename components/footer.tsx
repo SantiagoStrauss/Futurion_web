@@ -31,10 +31,6 @@ export default function Footer() {
                 <span className="sr-only">LinkedIn</span>
               </a>
               <a href="#" className="text-[#FFFCF2]/70 hover:text-[#FFFCF2] transition-colors duration-300">
-                <Instagram className="h-5 w-5" />
-                <span className="sr-only">Instagram</span>
-              </a>
-              <a href="#" className="text-[#FFFCF2]/70 hover:text-[#FFFCF2] transition-colors duration-300">
                 <Github className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </a>

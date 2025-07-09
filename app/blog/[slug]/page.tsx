@@ -6,11 +6,81 @@ import { Calendar, User, ArrowLeft, Share2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { client } from "@/sanity/lib/client"
 import { urlFor } from "@/sanity/lib/image"
-import { mockBlogData } from "@/lib/mockData"
+import { PortableText } from "@portabletext/react"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 
 export const runtime = 'edge'
+
+// PortableText components for rich text rendering
+const portableTextComponents = {
+  types: {
+    image: ({ value }: any) => {
+      return (
+        <div className="my-8">
+          <img
+            src={urlFor(value).width(800).url()}
+            alt={value.alt || 'Blog image'}
+            className="w-full rounded-lg shadow-lg"
+          />
+          {value.alt && (
+            <p className="text-sm text-gray-500 text-center mt-2 italic">
+              {value.alt}
+            </p>
+          )}
+        </div>
+      )
+    },
+  },
+  block: {
+    h1: ({ children }: any) => (
+      <h1 className="text-3xl font-bold mt-8 mb-4 text-black">{children}</h1>
+    ),
+    h2: ({ children }: any) => (
+      <h2 className="text-2xl font-semibold mt-6 mb-3 text-black">{children}</h2>
+    ),
+    h3: ({ children }: any) => (
+      <h3 className="text-xl font-semibold mt-5 mb-2 text-black">{children}</h3>
+    ),
+    h4: ({ children }: any) => (
+      <h4 className="text-lg font-semibold mt-4 mb-2 text-black">{children}</h4>
+    ),
+    normal: ({ children }: any) => (
+      <p className="mb-4 text-gray-700 leading-relaxed">{children}</p>
+    ),
+    blockquote: ({ children }: any) => (
+      <blockquote className="border-l-4 border-[#A51C30] pl-4 my-6 italic text-gray-600">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({ children }: any) => (
+      <ul className="list-disc list-inside mb-4 space-y-2 text-gray-700">{children}</ul>
+    ),
+    number: ({ children }: any) => (
+      <ol className="list-decimal list-inside mb-4 space-y-2 text-gray-700">{children}</ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }: any) => <li className="mb-1">{children}</li>,
+    number: ({ children }: any) => <li className="mb-1">{children}</li>,
+  },
+  marks: {
+    strong: ({ children }: any) => <strong className="font-semibold">{children}</strong>,
+    em: ({ children }: any) => <em className="italic">{children}</em>,
+    link: ({ children, value }: any) => (
+      <a 
+        href={value.href} 
+        className="text-[#A51C30] hover:text-[#8A1727] underline"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
+    ),
+  },
+}
 
 // Types
 interface SanityImage {
@@ -92,39 +162,32 @@ export default function BlogPostPage() {
 
     const fetchPost = async () => {
       try {
-        const [postData, relatedData] = await Promise.all([
-          client.fetch(postQuery, { slug }),
-          client.fetch(relatedPostsQuery, { slug })
-        ])
+        console.log('Fetching post with slug:', slug)
         
-        // Si no hay datos de Sanity, buscar en datos de prueba
+        // Fetch main post
+        const postData = await client.fetch(postQuery, { slug })
+        console.log('Post data received:', postData)
+        
         if (!postData) {
-          const mockPost = mockBlogData.posts.find(p => p.slug.current === slug)
-          if (mockPost) {
-            setPost(mockPost)
-          }
-        } else {
-          setPost(postData)
+          setError('Post no encontrado')
+          return
         }
         
-        if (!relatedData || relatedData.length === 0) {
-          // Obtener posts relacionados de prueba (excluir el actual)
-          const related = mockBlogData.posts.filter(p => p.slug.current !== slug).slice(0, 3)
-          setRelatedPosts(related)
-        } else {
-          setRelatedPosts(relatedData)
+        setPost(postData)
+        
+        // Fetch related posts
+        try {
+          const relatedData = await client.fetch(relatedPostsQuery, { slug })
+          console.log('Related posts received:', relatedData)
+          setRelatedPosts(relatedData || [])
+        } catch (relatedError) {
+          console.warn('Error fetching related posts:', relatedError)
+          setRelatedPosts([])
         }
+        
       } catch (err) {
         console.error('Error fetching post:', err)
-        // Si hay error, buscar en datos de prueba
-        const mockPost = mockBlogData.posts.find(p => p.slug.current === slug)
-        if (mockPost) {
-          setPost(mockPost)
-          const related = mockBlogData.posts.filter(p => p.slug.current !== slug).slice(0, 3)
-          setRelatedPosts(related)
-        } else {
-          setError('Error al cargar el artículo')
-        }
+        setError('Error al cargar el post. Verifica tu conexión con Sanity.')
       } finally {
         setIsLoading(false)
       }
@@ -143,19 +206,16 @@ export default function BlogPostPage() {
   }
 
   const getImageUrl = (image: SanityImage | undefined, width = 800) => {
-    if (!image) return "/placeholder.svg"
-    
-    try {
-      // Si es una imagen de Sanity real
-      if (image.asset && image.asset._ref && !image.asset._ref.includes('placeholder')) {
-        return urlFor(image).width(width).url()
-      }
-    } catch (err) {
-      console.error('Error generating image URL:', err)
+    if (!image || !image.asset || !image.asset._ref) {
+      return "/placeholder.svg"
     }
     
-    // Fallback para placeholders o errores
-    return "/placeholder.svg"
+    try {
+      return urlFor(image).width(width).url()
+    } catch (err) {
+      console.error('Error generating image URL:', err)
+      return "/placeholder.svg"
+    }
   }
 
   const sharePost = async () => {
@@ -309,12 +369,12 @@ export default function BlogPostPage() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="prose prose-lg max-w-none mb-16"
         >
-          {post.body ? (
-            <div className="text-lg leading-relaxed text-gray-700">
-              <p>Contenido del post se mostrará aquí una vez configurado completamente Sanity.</p>
-              <p className="text-sm text-gray-500 mt-4">
-                Nota: El contenido completo requiere configuración adicional de Sanity CMS.
-              </p>
+          {post.body && post.body.length > 0 ? (
+            <div className="text-lg leading-relaxed">
+              <PortableText 
+                value={post.body} 
+                components={portableTextComponents}
+              />
             </div>
           ) : (
             <div className="text-lg leading-relaxed text-gray-700">
@@ -341,9 +401,13 @@ export default function BlogPostPage() {
               )}
               <div>
                 <h3 className="text-xl font-semibold mb-2">{post.author.name}</h3>
-                <p className="text-gray-600">
-                  Información del autor disponible una vez configurado Sanity.
-                </p>
+                {post.author.bio && post.author.bio.length > 0 ? (
+                  <div className="text-gray-600">
+                    <PortableText value={post.author.bio} components={portableTextComponents} />
+                  </div>
+                ) : (
+                  <p className="text-gray-600">Autor de {post.title}</p>
+                )}
               </div>
             </div>
           </motion.div>

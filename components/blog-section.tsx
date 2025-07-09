@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
 import { client } from "@/sanity/lib/client"
 import { urlFor } from "@/sanity/lib/image"
-import { mockBlogData } from "@/lib/mockData"
 import Link from "next/link"
 
 // Types
@@ -60,17 +59,14 @@ export default function BlogSection() {
 	useEffect(() => {
 		const fetchPosts = async () => {
 			try {
+				console.log('Fetching blog posts for home section...')
 				const data = await client.fetch(postsQuery)
-				// Si no hay datos de Sanity, usar datos de prueba
-				if (!data || data.length === 0) {
-					setPosts(mockBlogData.posts)
-				} else {
-					setPosts(data)
-				}
+				console.log('Blog posts received:', data)
+				setPosts(data || [])
 			} catch (err) {
 				console.error('Error fetching posts:', err)
-				// Si hay error, usar datos de prueba
-				setPosts(mockBlogData.posts)
+				setError('Error al cargar los posts del blog')
+				setPosts([])
 			} finally {
 				setIsLoading(false)
 			}
@@ -89,19 +85,16 @@ export default function BlogSection() {
 	}
 
 	const getImageUrl = (image: SanityImage | undefined) => {
-		if (!image) return "/placeholder.svg?height=300&width=500"
-		
-		try {
-			// Si es una imagen de Sanity real
-			if (image.asset && image.asset._ref && !image.asset._ref.includes('placeholder')) {
-				return urlFor(image).width(500).height(300).url()
-			}
-		} catch (err) {
-			console.error('Error generating image URL:', err)
+		if (!image || !image.asset || !image.asset._ref) {
+			return "/placeholder.svg?height=300&width=500"
 		}
 		
-		// Fallback para placeholders o errores
-		return "/placeholder.svg?height=300&width=500"
+		try {
+			return urlFor(image).width(500).height(300).url()
+		} catch (err) {
+			console.error('Error generating image URL:', err)
+			return "/placeholder.svg?height=300&width=500"
+		}
 	}
 	return (
 		<section className="py-32 bg-[#FFFCF2] relative">

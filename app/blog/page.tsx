@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input"
 import { useEffect } from "react"
 import { client } from "@/sanity/lib/client"
 import { urlFor } from "@/sanity/lib/image"
-import { mockBlogData } from "@/lib/mockData"
 import Link from "next/link"
 
 // Types (same as blog-section)
@@ -79,31 +78,25 @@ export default function BlogPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log('Fetching blog data from Sanity...')
+        
         const [postsData, categoriesData] = await Promise.all([
           client.fetch(allPostsQuery),
           client.fetch(categoriesQuery)
         ])
         
-        // Si no hay datos de Sanity, usar datos de prueba
-        if (!postsData || postsData.length === 0) {
-          setPosts(mockBlogData.posts)
-          setFilteredPosts(mockBlogData.posts)
-        } else {
-          setPosts(postsData)
-          setFilteredPosts(postsData)
-        }
+        console.log('Posts received:', postsData)
+        console.log('Categories received:', categoriesData)
         
-        if (!categoriesData || categoriesData.length === 0) {
-          setCategories(mockBlogData.categories)
-        } else {
-          setCategories(categoriesData)
-        }
+        setPosts(postsData || [])
+        setFilteredPosts(postsData || [])
+        setCategories(categoriesData || [])
+        
       } catch (err) {
-        console.error('Error fetching data:', err)
-        // Si hay error, usar datos de prueba
-        setPosts(mockBlogData.posts)
-        setFilteredPosts(mockBlogData.posts)
-        setCategories(mockBlogData.categories)
+        console.error('Error fetching data from Sanity:', err)
+        setPosts([])
+        setFilteredPosts([])
+        setCategories([])
       } finally {
         setIsLoading(false)
       }
@@ -141,19 +134,16 @@ export default function BlogPage() {
   }
 
   const getImageUrl = (image: SanityImage | undefined) => {
-    if (!image) return "/placeholder.svg?height=300&width=500"
-    
-    try {
-      // Si es una imagen de Sanity real
-      if (image.asset && image.asset._ref && !image.asset._ref.includes('placeholder')) {
-        return urlFor(image).width(500).height(300).url()
-      }
-    } catch (err) {
-      console.error('Error generating image URL:', err)
+    if (!image || !image.asset || !image.asset._ref) {
+      return "/placeholder.svg?height=300&width=500"
     }
     
-    // Fallback para placeholders o errores
-    return "/placeholder.svg?height=300&width=500"
+    try {
+      return urlFor(image).width(500).height(300).url()
+    } catch (err) {
+      console.error('Error generating image URL:', err)
+      return "/placeholder.svg?height=300&width=500"
+    }
   }
 
   return (
