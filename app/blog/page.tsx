@@ -9,6 +9,8 @@ import { useEffect } from "react"
 import { client } from "@/sanity/lib/client"
 import { urlFor } from "@/sanity/lib/image"
 import Link from "next/link"
+import Navbar from "@/components/navbar"
+import Footer from "@/components/footer"
 
 // Types (same as blog-section)
 interface SanityImage {
@@ -147,67 +149,79 @@ export default function BlogPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FFFCF2] pt-20">
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-4xl md:text-5xl font-serif font-light tracking-wider mb-6 text-black">
-            Nuestro Blog
-          </h1>
-          <p className="text-xl text-black/80 max-w-3xl mx-auto font-light">
-            Compartimos nuestras ideas, investigaciones y perspectivas sobre
-            tecnología, innovación y transformación digital.
-          </p>
-        </motion.div>
-
-        {/* Search and Filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mb-12"
-        >
-          <div className="flex flex-col md:flex-row gap-4 mb-6">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <Input
-                type="text"
-                placeholder="Buscar artículos..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-          </div>
-
-          {/* Categories */}
-          <div className="flex flex-wrap gap-2">
-            <Button
-              variant={selectedCategory === null ? "default" : "outline"}
-              onClick={() => setSelectedCategory(null)}
-              className={selectedCategory === null ? "bg-[#A51C30] text-white" : ""}
+    <>
+      <Navbar />
+      <main className="bg-[#FFFCF2]">
+        {/* Hero Section */}
+        <div className="bg-black pt-32 pb-24">
+          <div className="max-w-6xl mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center"
             >
-              Todos
-            </Button>
-            {categories.map((category) => (
-              <Button
-                key={category._id}
-                variant={selectedCategory === category.title ? "default" : "outline"}
-                onClick={() => setSelectedCategory(
-                  selectedCategory === category.title ? null : category.title
-                )}
-                className={selectedCategory === category.title ? "bg-[#A51C30] text-white" : ""}
-              >
-                {category.title}
-              </Button>
-            ))}
+              <h1 className="text-4xl md:text-5xl font-serif font-light tracking-wider mb-6 text-white">
+                Nuestro Blog
+              </h1>
+              <p className="text-xl text-white/80 max-w-3xl mx-auto font-light">
+                Compartimos nuestras ideas, investigaciones y perspectivas sobre
+                tecnología, innovación y transformación digital.
+              </p>
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-4 py-16 -mt-20">
+          {/* Search and Filters */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mb-12 p-6 bg-white rounded-lg shadow-lg"
+          >
+            <div className="flex flex-col md:flex-row gap-4 mb-6">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  type="text"
+                  placeholder="Buscar artículos..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 bg-white border-black border-2"
+                />
+              </div>
+            </div>
+
+            {/* Categories */}
+            <div className="flex flex-wrap gap-2">
+              <Button
+                variant={selectedCategory === null ? "default" : "outline"}
+                onClick={() => setSelectedCategory(null)}
+                className={selectedCategory === null 
+                  ? "bg-[#A51C30] text-white" 
+                  : "self-start md:self-auto text-white hover:bg-[#A51C30] hover:text-white"
+                }
+              >
+                Todos
+              </Button>
+              {categories.map((category) => (
+                <Button
+                  key={category._id}
+                  variant={selectedCategory === category.title ? "default" : "outline"}
+                  onClick={() => setSelectedCategory(
+                    selectedCategory === category.title ? null : category.title
+                  )}
+                  className={selectedCategory === category.title 
+                    ? "bg-[#A51C30] text-white" 
+                    : "self-start md:self-auto text-white hover:bg-[#A51C30] hover:text-white"
+                  }
+                >
+                  {category.title}
+                </Button>
+              ))}
+            </div>
+          </motion.div>
 
         {/* Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -286,8 +300,10 @@ export default function BlogPage() {
               </motion.article>
             ))
           )}
+          </div>
         </div>
-      </div>
-    </div>
+      </main>
+      <Footer />
+    </>
   )
 }
