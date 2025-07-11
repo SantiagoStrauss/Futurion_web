@@ -1,5 +1,7 @@
 "use client"
 
+export const runtime = 'edge';
+
 import { useState, useEffect, useCallback } from "react"
 import { motion, useScroll, useSpring } from "framer-motion"
 import { Calendar, User, ArrowLeft, Share2, Copy } from "lucide-react"
