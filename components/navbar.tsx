@@ -9,10 +9,9 @@ import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/com
 const navLinks = [
   { name: "Inicio", href: "/" },
   { name: "Servicios", href: "#servicios" },
-  { name: "Proyectos", href: "#proyectos" },
   { name: "Casos de Estudio", href: "#casos" },
   { name: "Blog", href: "/blog" },
-  { name: "Nosotros", href: "#nosotros" },
+  { name: "Nosotros", href: "/nosotros" },
 ]
 
 export default function Navbar() {
