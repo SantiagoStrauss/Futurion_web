@@ -10,31 +10,31 @@ const teamMembers = [
   {
     name: "Santiago Ramos",
     role: "CEO & Co-fundador",
-    description: "Experto en transformación digital y estrategia empresarial de la Universidad de los Andes. Con experiencia liderando proyectos de innovación tecnológica en empresas Fortune 500.",
+    description: "Experto en transformación digital y estrategia empresarial de la Universidad de los Andes. Miembro del McKinsey & Company Forward Alumni Network.",
     skills: ["Estrategia Digital", "Liderazgo", "Innovación", "Consultoría"],
-    image: "/placeholder-user.jpg",
-    linkedin: "#",
-    github: "#",
+    image: "/santiago.webp",
+    linkedin: "https://www.linkedin.com/in/santiago-ramos-vargas-b703b0142/",
+    github: "https://github.com/SantiagoStrauss",
     email: "ds.ramosv@globusscreen.com"
   },
   {
     name: "Robinson Beltrán",
     role: "CTO & Co-fundador",
-    description: "Ingeniero mecatrónico de la Universidad Uniagustiniana con más de 8 años de experiencia, arquitecto de software y especialista en tecnologías emergentes. Apasionado por crear soluciones escalables que impulsen el crecimiento empresarial.",
+    description: "Ingeniero mecatrónico de la Universidad Uniagustiniana con más de 8 años de experiencia en desarrollo Full-Stack, arquitecto de software y especialista en tecnologías emergentes. Apasionado por crear soluciones escalables que impulsen el crecimiento empresarial.",
     skills: ["Desarrollo Full-Stack", "Cloud Computing", "AI/ML", "DevOps"],
     image: "/placeholder-user.jpg",
-    linkedin: "#",
-    github: "#",
+    linkedin: "https://www.linkedin.com/in/robinson-dario-beltran-ni%C3%B1o-071727179/",
+    github: "https://github.com/robinsondbn",
     email: "david@futurionpartners.com"
   },
   {
     name: "Harrison Pinto",
     role: "COO & Co-fundador",
-    description: "Ingeniero de Sistemas y Computación de la Universidad Nacional de Colombia con más de 5 años de experiencia. Especialista en operaciones y gestión de proyectos. Enfocado en optimizar procesos y garantizar la excelencia en la entrega de soluciones.",
+    description: "Ingeniero de Sistemas y Computación de la Universidad Nacional de Colombia con más de 5 años de experiencia en desarrollo web/móvil. Especialista en operaciones y gestión de proyectos. Enfocado en optimizar procesos y garantizar la excelencia en la entrega de soluciones.",
     skills: ["Desarrollo Full-Stack", "Operaciones", "Análisis de Datos", "Optimización"],
     image: "/placeholder-user.jpg",
-    linkedin: "#",
-    github: "#",
+    linkedin: "https://www.linkedin.com/in/harrison-pinto/",
+    github: "https://github.com/HASPIMA",
     email: "harrison@futurionpartners.com"
   }
 ]
@@ -99,7 +99,7 @@ export default function NosotrosComponent() {
             >
               <h3 className="text-2xl font-serif font-medium mb-4 text-[#A51C30]">¿Para qué existimos?</h3>
               <p className="text-black/80 mb-6 leading-relaxed font-light">
-                Nuestra misión es democratizar el acceso a la innovación tecnológica, especialmente para pequeñas y medianas empresas que tradicionalmente no tenían acceso a consultorías de primer nivel.
+                Nuestra misión es democratizar el acceso a la innovación tecnológica, especialmente para pequeñas y medianas empresas que tradicionalmente no tenían acceso a consultorías de primer nivel. Estamos comprometidos con usar y aportar al ecosistema Open Source, creyendo firmemente en el poder de la colaboración y el conocimiento compartido.
               </p>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
@@ -113,6 +113,10 @@ export default function NosotrosComponent() {
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-[#A51C30] rounded-full"></div>
                   <span className="text-black/80 font-light">Crear soluciones sostenibles y escalables</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-[#A51C30] rounded-full"></div>
+                  <span className="text-black/80 font-light">Contribuir al ecosistema Open Source</span>
                 </div>
               </div>
             </motion.div>
@@ -240,6 +244,8 @@ export default function NosotrosComponent() {
                   <div className="flex justify-center space-x-4">
                     <a
                       href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-black/60 hover:text-[#A51C30] transition-colors"
                       aria-label={`LinkedIn de ${member.name}`}
                     >
@@ -247,6 +253,8 @@ export default function NosotrosComponent() {
                     </a>
                     <a
                       href={member.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-black/60 hover:text-[#A51C30] transition-colors"
                       aria-label={`GitHub de ${member.name}`}
                     >
