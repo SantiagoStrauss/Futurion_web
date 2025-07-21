@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
 
+// Configure the runtime for this API route
+export const runtime = 'edge'
+
 // Store the secret in environment variables for security
 const CHATBASE_SECRET = process.env.CHATBASE_SECRET
 
