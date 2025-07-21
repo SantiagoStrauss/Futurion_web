@@ -54,18 +54,18 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#casos" className="text-[#FFFCF2]/70 hover:text-[#FFFCF2] transition-colors duration-300">
+                <Link href="/casos-de-estudio" className="text-[#FFFCF2]/70 hover:text-[#FFFCF2] transition-colors duration-300">
                   Casos de Estudio
                 </Link>
               </li>
               <li>
-                <Link href="#blog" className="text-[#FFFCF2]/70 hover:text-[#FFFCF2] transition-colors duration-300">
+                <Link href="/blog" className="text-[#FFFCF2]/70 hover:text-[#FFFCF2] transition-colors duration-300">
                   Blog
                 </Link>
               </li>
               <li>
                 <Link
-                  href="#nosotros"
+                  href="/nosotros"
                   className="text-[#FFFCF2]/70 hover:text-[#FFFCF2] transition-colors duration-300"
                 >
                   Nosotros

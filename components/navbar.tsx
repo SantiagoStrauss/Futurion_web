@@ -66,8 +66,8 @@ export default function Navbar() {
 
       {/* Botón Desktop */}
       <div className="hidden md:block">
-        <Button className="bg-primary hover:bg-primary/80 text-white">
-          Contactar
+        <Button className="bg-primary hover:bg-primary/80 text-white" asChild>
+          <Link href="/contacto">Contactar</Link>
         </Button>
       </div>
 
@@ -102,8 +102,8 @@ export default function Navbar() {
             </nav>
 
             <div className="mt-8 pt-8 border-t border-[#333]">
-              <Button className="w-full bg-red-700 hover:bg-red-800 text-white">
-                Contactar
+              <Button className="w-full bg-red-700 hover:bg-red-800 text-white" asChild>
+                <Link href="/contacto">Contactar</Link>
               </Button>
             </div>
           </div>
