@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Tinos, Libre_Franklin } from 'next/font/google'
 import './globals.css'
+import ChatbaseWidget from '@/components/chatbase-widget'
 
 const tinos = Tinos({
   subsets: ['latin'],
@@ -26,7 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${tinos.variable} ${libreFranklin.variable}`}>
-      <body className="overflow-x-hidden bg-black font-sans">{children}</body>
+      <body className="overflow-x-hidden bg-black font-sans">
+        {children}
+        <ChatbaseWidget />
+      </body>
     </html>
   )
 }
