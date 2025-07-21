@@ -5,6 +5,7 @@ import InteractiveCards from "@/components/interactive-cards"
 import OurWork from "@/components/our-work"
 import BusinessInnovation from "@/components/business-innovation"
 import BlogSection from "@/components/blog-section"
+// import CaseStudiesSection from "@/components/case-studies-section"  // removed per request
 import Footer from "@/components/footer"
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
         <OurWork />
         <BusinessInnovation />
         <BlogSection />
+        {/* <CaseStudiesSection /> removed from landing page as per user request */}
       </main>
       <Footer />
     </>

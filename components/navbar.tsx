@@ -9,7 +9,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/com
 const navLinks = [
   { name: "Inicio", href: "/" },
   { name: "Servicios", href: "#servicios" },
-  { name: "Casos de Estudio", href: "#casos" },
+  { name: "Casos de Estudio", href: "/casos-de-estudio" },
   { name: "Blog", href: "/blog" },
   { name: "Nosotros", href: "/nosotros" },
 ]

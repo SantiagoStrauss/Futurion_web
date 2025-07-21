@@ -18,61 +18,102 @@ interface SanityImage {
   alt?: string;
 }
 
-interface Post {
+interface CaseStudy {
   _id: string;
   title: string;
   slug: {
     current: string;
   };
   excerpt?: string;
-  mainImage?: SanityImage;
+  image?: SanityImage;
   publishedAt: string;
-  author: {
-    name: string;
-  };
-  categories?: {
-    title: string;
-  }[];
+  client?: string;
+  category: string;
+  featured?: boolean;
 }
 
-// GROQ query to fetch posts
-const postsQuery = `*[_type == "post"] | order(publishedAt desc)[0...3] {
+// GROQ query to fetch case studies
+const caseStudiesQuery = `*[_type == "caseStudy"] | order(featured desc, publishedAt desc)[0...3] {
   _id,
   title,
   slug,
   excerpt,
-  mainImage,
+  image,
   publishedAt,
-  author->{
-    name
-  },
-  categories[]->{
-    title
-  }
+  client,
+  category,
+  featured
 }`
 
-export default function BlogSection() {
-	const [posts, setPosts] = useState<Post[]>([])
+const getCategoryLabel = (category: string) => {
+  const categories: Record<string, string> = {
+    'transformacion-digital': 'Transformación Digital',
+    'automatizacion': 'Automatización',
+    'cloud-computing': 'Cloud Computing',
+    'e-commerce': 'E-commerce',
+    'mobile-apps': 'Mobile Apps',
+    'web-development': 'Web Development',
+    'consultoria': 'Consultoría',
+    'otros': 'Otros'
+  }
+  return categories[category] || category
+}
+
+export default function CaseStudiesSection() {
+	const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([])
 	const [isLoading, setIsLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)
 
 	useEffect(() => {
-		const fetchPosts = async () => {
+		const fetchCaseStudies = async () => {
 			try {
-				console.log('Fetching blog posts for home section...')
-				const data = await client.fetch(postsQuery)
-				console.log('Blog posts received:', data)
-				setPosts(data || [])
+				console.log('Fetching case studies for home section...')
+				const data = await client.fetch(caseStudiesQuery)
+				console.log('Case studies received:', data)
+				setCaseStudies(data || [])
 			} catch (err) {
-				console.error('Error fetching posts:', err)
-				setError('Error al cargar los posts del blog')
-				setPosts([])
+				console.error('Error fetching case studies:', err)
+				setError('Error al cargar los casos de estudio')
+				// Datos de fallback para desarrollo
+				const fallbackData: CaseStudy[] = [
+					{
+						_id: '1',
+						title: 'Transformación Digital en Retail',
+						slug: { current: 'transformacion-digital-retail' },
+						excerpt: 'Modernización completa de una cadena de retail líder.',
+						client: 'Retail Corp',
+						category: 'transformacion-digital',
+						publishedAt: '2024-01-15T10:00:00Z',
+						featured: true
+					},
+					{
+						_id: '2',
+						title: 'Automatización de Procesos',
+						slug: { current: 'automatizacion-procesos' },
+						excerpt: 'Optimización de procesos empresariales mediante automatización.',
+						client: 'TechCorp',
+						category: 'automatizacion',
+						publishedAt: '2024-01-10T10:00:00Z',
+						featured: false
+					},
+					{
+						_id: '3',
+						title: 'Migración a la Nube',
+						slug: { current: 'migracion-nube' },
+						excerpt: 'Migración exitosa de infraestructura on-premise a AWS.',
+						client: 'CloudTech',
+						category: 'cloud-computing',
+						publishedAt: '2024-01-05T10:00:00Z',
+						featured: false
+					}
+				]
+				setCaseStudies(fallbackData)
 			} finally {
 				setIsLoading(false)
 			}
 		}
 
-		fetchPosts()
+		fetchCaseStudies()
 	}, [])
 
 	const formatDate = (dateString: string) => {
@@ -96,6 +137,7 @@ export default function BlogSection() {
 			return "/placeholder.svg?height=300&width=500"
 		}
 	}
+
 	return (
 		<section className="py-32 bg-[#FFFCF2] relative">
 			<div className="max-w-6xl mx-auto px-4">
@@ -106,11 +148,11 @@ export default function BlogSection() {
 						transition={{ duration: 0.5 }}
 					>
 						<h2 className="text-3xl md:text-4xl font-serif font-light tracking-wider mb-4 text-black">
-							Nuestro Blog
+							Casos de Estudio
 						</h2>
 						<p className="text-lg text-black/80 max-w-2xl font-light">
-							Compartimos nuestras ideas, investigaciones y perspectivas sobre
-							tecnología, innovación y transformación digital.
+							Descubre cómo hemos ayudado a nuestros clientes a transformar 
+							sus negocios con soluciones tecnológicas innovadoras.
 						</p>
 					</motion.div>
 					<Button
@@ -118,8 +160,8 @@ export default function BlogSection() {
 						className="mt-6 md:mt-0 bg-white border-[#A51C30] text-[#A51C30] hover:bg-[#A51C30] hover:text-white"
 						asChild
 					>
-						<Link href="/blog">
-							Ver todos los artículos
+						<Link href="/casos-de-estudio">
+							Ver todos los casos
 						</Link>
 					</Button>
 				</div>
@@ -143,18 +185,18 @@ export default function BlogSection() {
 								</div>
 							</div>
 						))
-					) : error ? (
+					) : error && caseStudies.length === 0 ? (
 						<div className="col-span-3 text-center py-8">
 							<p className="text-red-500">{error}</p>
 						</div>
-					) : posts.length === 0 ? (
+					) : caseStudies.length === 0 ? (
 						<div className="col-span-3 text-center py-8">
-							<p className="text-gray-500">No hay posts disponibles</p>
+							<p className="text-black/60">No hay casos de estudio disponibles</p>
 						</div>
 					) : (
-						posts.map((post, index) => (
+						caseStudies.map((caseStudy, index) => (
 							<motion.article
-								key={post._id}
+								key={caseStudy._id}
 								initial={{ opacity: 0, y: 30 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -162,13 +204,16 @@ export default function BlogSection() {
 							>
 								<div className="relative h-48 overflow-hidden">
 									<img
-										src={getImageUrl(post.mainImage)}
-										alt={post.mainImage?.alt || post.title}
+										src={getImageUrl(caseStudy.image)}
+										alt={caseStudy.image?.alt || caseStudy.title}
 										className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
 									/>
-									{post.categories && post.categories[0] && (
-										<div className="absolute top-4 left-4 bg-[#A51C30] text-white text-xs font-medium py-1 px-2 rounded">
-											{post.categories[0].title}
+									<div className="absolute top-4 left-4 bg-[#A51C30] text-white text-xs font-medium py-1 px-2 rounded">
+										{getCategoryLabel(caseStudy.category)}
+									</div>
+									{caseStudy.featured && (
+										<div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-medium py-1 px-2 rounded">
+											Destacado
 										</div>
 									)}
 								</div>
@@ -177,27 +222,29 @@ export default function BlogSection() {
 									<div className="flex items-center text-sm text-black/60 mb-3">
 										<div className="flex items-center mr-4">
 											<Calendar className="h-4 w-4 mr-1" />
-											<span>{formatDate(post.publishedAt)}</span>
+											<span>{formatDate(caseStudy.publishedAt)}</span>
 										</div>
-										<div className="flex items-center">
-											<User className="h-4 w-4 mr-1" />
-											<span>{post.author.name}</span>
-										</div>
+										{caseStudy.client && (
+											<div className="flex items-center">
+												<User className="h-4 w-4 mr-1" />
+												<span>{caseStudy.client}</span>
+											</div>
+										)}
 									</div>
 
 									<h3 className="text-xl font-serif font-medium mb-3 text-black">
-										{post.title}
+										{caseStudy.title}
 									</h3>
 
 									<p className="text-black/70 mb-6 line-clamp-3">
-										{post.excerpt || 'Sin descripción disponible'}
+										{caseStudy.excerpt || 'Sin descripción disponible'}
 									</p>
 
 									<Link
-										href={`/blog/${post.slug.current}`}
+										href={`/casos-de-estudio/${caseStudy.slug?.current || caseStudy._id}`}
 										className="inline-flex items-center text-[#A51C30] hover:text-[#8A1727] transition-colors duration-300 mt-auto group"
 									>
-										<span className="mr-2 font-medium">Leer más</span>
+										<span className="mr-2 font-medium">Ver caso</span>
 										<ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" />
 									</Link>
 								</div>
@@ -209,4 +256,3 @@ export default function BlogSection() {
 		</section>
 	)
 }
-
