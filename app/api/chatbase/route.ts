@@ -1,11 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server'
-import crypto from 'crypto'
 
 // Configure the runtime for this API route
 export const runtime = 'edge'
 
 // Store the secret in environment variables for security
 const CHATBASE_SECRET = process.env.CHATBASE_SECRET
+
+// Helper function to create HMAC using Web Crypto API
+async function createHmac(secret: string, message: string): Promise<string> {
+  const encoder = new TextEncoder()
+  const keyData = encoder.encode(secret)
+  const messageData = encoder.encode(message)
+
+  const key = await crypto.subtle.importKey(
+    'raw',
+    keyData,
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  )
+
+  const signature = await crypto.subtle.sign('HMAC', key, messageData)
+  const hashArray = Array.from(new Uint8Array(signature))
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+  
+  return hashHex
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,10 +48,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate HMAC hash for user verification
-    const hash = crypto
-      .createHmac('sha256', CHATBASE_SECRET)
-      .update(userId.toString())
-      .digest('hex')
+    const hash = await createHmac(CHATBASE_SECRET, userId.toString())
 
     return NextResponse.json({
       hash,

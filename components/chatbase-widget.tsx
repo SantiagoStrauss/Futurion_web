@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 // Import debug utilities in development
 if (process.env.NODE_ENV === 'development') {
@@ -24,7 +25,18 @@ export default function ChatbaseWidget({
   userEmail, 
   userName 
 }: ChatbaseWidgetProps = {}) {
+  const pathname = usePathname()
+
+  // Don't show widget on certain routes
+  const hiddenRoutes = ['/studio']
+  const shouldHideWidget = hiddenRoutes.some(route => pathname?.startsWith(route))
+
   useEffect(() => {
+    // Don't initialize if widget should be hidden
+    if (shouldHideWidget) {
+      return
+    }
+
     let isInitialized = false
 
     // Initialize Chatbase
@@ -159,7 +171,12 @@ export default function ChatbaseWidget({
       // para evitar interferir con el funcionamiento del widget
       window.removeEventListener("load", () => {})
     }
-  }, [userId, userEmail, userName])
+  }, [userId, userEmail, userName, shouldHideWidget])
+
+  // Don't render anything if widget should be hidden
+  if (shouldHideWidget) {
+    return null
+  }
 
   return null // This component doesn't render anything visible
 }
