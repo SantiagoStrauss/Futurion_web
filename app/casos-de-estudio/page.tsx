@@ -355,7 +355,7 @@ export default function CaseStudiesPage() {
                 className="group"
               >
                 <Link href={`/casos-de-estudio/${caseStudy.slug?.current || caseStudy._id}`}>
-                  <div className="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <div className="relative flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
                     {/* Featured Badge */}
                     {caseStudy.featured && (
                       <div className="absolute top-4 right-4 z-10">

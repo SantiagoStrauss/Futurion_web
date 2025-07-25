@@ -47,19 +47,19 @@ const services = [
     description:
       "Creamos sitios web modernos, responsivos y optimizados para buscadores que destacan tu marca en el mercado digital.",
     icon: <Globe className="h-8 w-8" />,
-    position: { x: 50, y: 5 },
+    position: { x: 50, y: 15 },
   },
   {
     title: "Aplicaciones Móviles",
     description:
-      "Desarrollamos apps nativas y multiplataforma con experiencias de usuario excepcionales que cautivan a tu audiencia.",
+      "Desarrollamos apps nativas y multiplataforma con experiencias de usuario excepcionales.",
     icon: <Layers className="h-8 w-8" />,
     position: { x: 85, y: 25 },
   },
   {
     title: "Consultoría Tecnológica",
     description:
-      "Asesoramos en la implementación de soluciones tecnológicas adaptadas a tus necesidades específicas de negocio.",
+      "Asesoramos en la implementación de soluciones tecnológicas adaptadas a tu negocio.",
     icon: <Rocket className="h-8 w-8" />,
     position: { x: 85, y: 75 },
   },
@@ -68,7 +68,7 @@ const services = [
     description:
       "Diseñamos e implementamos arquitecturas de datos eficientes, seguras y escalables para tu organización.",
     icon: <Database className="h-8 w-8" />,
-    position: { x: 50, y: 95 },
+    position: { x: 50, y: 85 },
   },
   {
     title: "Inteligencia Artificial",

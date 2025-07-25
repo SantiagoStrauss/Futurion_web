@@ -200,8 +200,13 @@ export default function CaseStudiesSection() {
 								initial={{ opacity: 0, y: 30 }}
 								whileInView={{ opacity: 1, y: 0 }}
 								transition={{ duration: 0.5, delay: index * 0.1 }}
-								className="flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
+								className="relative flex flex-col bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
 							>
+								{caseStudy.featured && (
+									<div className="absolute top-4 right-4 z-10 bg-yellow-400 text-yellow-900 text-xs font-medium py-1 px-2 rounded">
+										Destacado
+									</div>
+								)}
 								<div className="relative h-48 overflow-hidden">
 									<img
 										src={getImageUrl(caseStudy.image)}
@@ -211,11 +216,6 @@ export default function CaseStudiesSection() {
 									<div className="absolute top-4 left-4 bg-[#A51C30] text-white text-xs font-medium py-1 px-2 rounded">
 										{getCategoryLabel(caseStudy.category)}
 									</div>
-									{caseStudy.featured && (
-										<div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-medium py-1 px-2 rounded">
-											Destacado
-										</div>
-									)}
 								</div>
 
 								<div className="flex flex-col p-6 flex-grow">
