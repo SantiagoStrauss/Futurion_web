@@ -319,6 +319,11 @@ export default function ContactoPage() {
                       Llamar ahora
                     </a>
                   </Button>
+                  <div className="mt-4 p-3 bg-[#A51C30]/10 rounded-lg border border-[#A51C30]/20">
+                    <p className="text-sm text-black/70">
+                      💬 También puedes usar nuestro bot <strong>Sagan</strong> en la parte inferior derecha para consultas rápidas
+                    </p>
+                  </div>
                 </div>
 
                 <div className="bg-[#A51C30]/10 rounded-lg p-6">

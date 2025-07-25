@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import Image from "next/image"
 
 const projects = [
     {
@@ -47,7 +48,8 @@ export default function OurWork() {
     const itemsToDisplay = isMobile ? [0] : Array.from({ length: Math.min(projects.length, 3) }, (_, i) => i)
 
     return (
-        <section className="py-32 bg-[#FFFCF2] relative overflow-hidden">
+        <>
+        <section className="py-20 bg-[#FFFCF2] relative overflow-hidden">
             <div className="max-w-6xl mx-auto px-4">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl font-serif font-extralight tracking-wider mb-6 text-black">
@@ -148,6 +150,37 @@ export default function OurWork() {
                     </div>
                 )}
             </div>
+
         </section>
+        
+        {/* Partners band */}
+        <div className="bg-white py-6 -mt-1">
+            <div className="max-w-6xl mx-auto px-4">
+                <div className="flex items-center justify-center space-x-8">
+                    <h3 className="text-black text-xl font-serif font-medium">Somos parte de:</h3>
+                    <div className="flex items-center space-x-8">
+                        <div className="flex items-center justify-center">
+                            <Image
+                                src="/aws.webp"
+                                alt="AWS Activate"
+                                width={140}
+                                height={70}
+                                className="object-contain opacity-70 hover:opacity-100 transition-opacity"
+                            />
+                        </div>
+                        <div className="flex items-center justify-center">
+                            <Image
+                                src="/cloudflare.webp"
+                                alt="Cloudflare for Startups"
+                                width={140}
+                                height={70}
+                                className="object-contain opacity-70 hover:opacity-100 transition-opacity"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </>
     )
 }

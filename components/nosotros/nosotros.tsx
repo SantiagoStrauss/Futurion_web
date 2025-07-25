@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Linkedin, Github, Mail } from "lucide-react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 const teamMembers = [
   {
@@ -124,7 +125,7 @@ export default function NosotrosComponent() {
         </div>
       </section>
 
-      {/* Values Section */}
+      {/* Certifications Section */}
       <section className="py-32 bg-black text-[#FFFCF2] relative">
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
@@ -134,43 +135,48 @@ export default function NosotrosComponent() {
             className="mb-16"
           >
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-light tracking-tight mb-8 text-center">
-              Nuestros Valores
+              Acreditaciones y Certificados
             </h2>
             <div className="w-20 h-[1px] bg-gradient-to-r from-transparent via-[#A51C30]/40 to-transparent mx-auto mb-8"></div>
+            <p className="text-xl font-sans font-light max-w-3xl mx-auto text-[#FFFCF2]/90 leading-relaxed text-center">
+              Nuestras alianzas estratégicas y certificaciones que respaldan nuestra experiencia y compromiso con la excelencia tecnológica.
+            </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
             {[
               {
-                title: "Innovación",
-                description: "Creemos en desafiar el status quo y buscar constantemente nuevas formas de resolver problemas complejos.",
+                title: "AWS Activate",
+                description: "Miembros del programa AWS Activate, que nos proporciona acceso a recursos, herramientas y soporte técnico para acelerar el crecimiento de startups en la nube de Amazon Web Services.",
+                image: "/aws.webp", // Placeholder for AWS Activate logo
                 delay: 0.1
               },
               {
-                title: "Colaboración", 
-                description: "Trabajamos codo a codo con nuestros clientes, convirtiéndonos en una extensión de sus equipos.",
+                title: "Cloudflare for Startups", 
+                description: "Participantes del programa Cloudflare for Startups, que nos brinda acceso a la plataforma de rendimiento y seguridad web líder en la industria para potenciar nuestras soluciones.",
+                image: "/cloudflare.webp", // Placeholder for Cloudflare for Startups logo
                 delay: 0.2
-              },
-              {
-                title: "Excelencia",
-                description: "Nos comprometemos a entregar soluciones de la más alta calidad, superando siempre las expectativas.",
-                delay: 0.3
               }
-            ].map((value, index) => (
+            ].map((cert, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: value.delay }}
-                className="flex flex-col"
+                transition={{ duration: 0.5, delay: cert.delay }}
+                className="flex flex-col items-center text-center"
               >
-                <div className="relative h-64 mb-6 overflow-hidden rounded-lg">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#A51C30]/20 to-[#780000]/10"></div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="relative w-80 h-48 mb-6 overflow-hidden rounded-lg bg-[#FFFCF2]/10 flex items-center justify-center">
+                  <Image
+                    src={cert.image}
+                    alt={cert.title}
+                    width={320}
+                    height={192}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div className="flex flex-col">
-                  <h3 className="text-xl font-serif font-medium mb-4 text-[#A51C30]">{value.title}</h3>
-                  <p className="text-[#FFFCF2]/70 text-sm leading-relaxed">{value.description}</p>
+                  <h3 className="text-2xl font-serif font-medium mb-4 text-[#A51C30]">{cert.title}</h3>
+                  <p className="text-[#FFFCF2]/70 leading-relaxed font-light">{cert.description}</p>
                 </div>
               </motion.div>
             ))}
