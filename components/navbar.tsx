@@ -2,13 +2,20 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetTitle } from "@/components/ui/sheet"
 
 const navLinks = [
   { name: "Inicio", href: "/" },
-  { name: "Servicios", href: "#servicios" },
+  { 
+    name: "Servicios", 
+    href: "/servicios",
+    submenu: [
+      { name: "Todos los Servicios", href: "/servicios" },
+      { name: "Implementación Odoo", href: "/odoo" }
+    ]
+  },
   { name: "Casos de Estudio", href: "/casos-de-estudio" },
   { name: "Blog", href: "/blog" },
   { name: "Nosotros", href: "/nosotros" },
@@ -16,6 +23,7 @@ const navLinks = [
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
 
   useEffect(() => {
     function handleScroll() {
@@ -54,13 +62,34 @@ export default function Navbar() {
       {/* Navegación en Desktop */}
       <nav className="hidden md:flex items-center space-x-6">
         {navLinks.map((link) => (
-          <Link
-            key={link.name}
-            href={link.href}
-            className={linkColor + " transition-colors font-sans"}
+          <div 
+            key={link.name} 
+            className="relative"
+            onMouseEnter={() => link.submenu && setActiveDropdown(link.name)}
+            onMouseLeave={() => setActiveDropdown(null)}
           >
-            {link.name}
-          </Link>
+            <Link
+              href={link.href}
+              className={`${linkColor} transition-colors font-sans flex items-center`}
+            >
+              {link.name}
+              {link.submenu && <ChevronDown className="ml-1 h-4 w-4" />}
+            </Link>
+            
+            {link.submenu && activeDropdown === link.name && (
+              <div className="absolute top-full left-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-10">
+                {link.submenu.map((sublink) => (
+                  <Link
+                    key={sublink.name}
+                    href={sublink.href}
+                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors font-sans"
+                  >
+                    {sublink.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
       </nav>
 
@@ -90,14 +119,31 @@ export default function Navbar() {
 
             <nav className="flex flex-col space-y-6 mb-auto">
               {navLinks.map((link) => (
-                <SheetClose asChild key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-lg font-sans text-white/90 hover:text-white transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </SheetClose>
+                <div key={link.name}>
+                  <SheetClose asChild>
+                    <Link
+                      href={link.href}
+                      className="text-lg font-sans text-white/90 hover:text-white transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </SheetClose>
+                  
+                  {link.submenu && (
+                    <div className="ml-4 mt-2 space-y-2">
+                      {link.submenu.map((sublink) => (
+                        <SheetClose asChild key={sublink.name}>
+                          <Link
+                            href={sublink.href}
+                            className="block text-white/70 hover:text-white transition-colors font-sans"
+                          >
+                            {sublink.name}
+                          </Link>
+                        </SheetClose>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
             </nav>
 

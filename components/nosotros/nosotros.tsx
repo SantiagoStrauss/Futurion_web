@@ -33,7 +33,7 @@ const teamMembers = [
     role: "COO & Co-fundador",
     description: "Ingeniero de Sistemas y Computación de la Universidad Nacional de Colombia con más de 5 años de experiencia en desarrollo web/móvil. Especialista en operaciones y gestión de proyectos. Enfocado en optimizar procesos y garantizar la excelencia en la entrega de soluciones.",
     skills: ["Desarrollo Full-Stack", "Operaciones", "Análisis de Datos", "Optimización"],
-    image: "/placeholder-user.jpg",
+    image: "/harrison.webp",
     linkedin: "https://www.linkedin.com/in/harrison-pinto/",
     github: "https://github.com/HASPIMA",
     email: "harrison@futurionpartners.com"
