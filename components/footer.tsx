@@ -1,9 +1,45 @@
+"use client"
+
 import Link from "next/link"
-import { Mountain, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, Github } from "lucide-react"
+import { Mail, Phone, Facebook, Twitter, Linkedin, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { useState } from "react"
 
 export default function Footer() {
+  const [email, setEmail] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState<null | "ok" | "error" >(null)
+  const [errorMsg, setErrorMsg] = useState("")
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault()
+    if (!email) return
+    setLoading(true)
+    setStatus(null)
+    setErrorMsg("")
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      })
+      if (!res.ok) {
+        const data = await res.json().catch(()=>({}))
+        setStatus("error")
+        setErrorMsg(data.error || 'Error al suscribirte')
+      } else {
+        setStatus("ok")
+        setEmail("")
+      }
+    } catch (err:any) {
+      setStatus("error")
+      setErrorMsg(err.message || 'Error inesperado')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <footer className="bg-black text-[#FFFCF2] pt-20 pb-10">
       <div className="max-w-6xl mx-auto px-4">
@@ -103,14 +139,24 @@ export default function Footer() {
             <p className="text-[#FFFCF2]/70 mb-4">
               Recibe nuestras últimas noticias y artículos directamente en tu bandeja de entrada.
             </p>
-            <form className="space-y-3">
+            <form onSubmit={handleSubscribe} className="space-y-3">
               <Input
                 type="email"
                 placeholder="Tu email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 className="bg-[#111] border-[#333] text-[#FFFCF2] focus:border-[#A51C30]"
                 required
               />
-              <Button className="w-full bg-[#780000] hover:bg-[#5d0000] text-[#FFFCF2]">Suscribirse</Button>
+              <Button disabled={loading} className="w-full bg-[#780000] hover:bg-[#5d0000] text-[#FFFCF2] disabled:opacity-50 disabled:cursor-not-allowed">
+                {loading ? 'Enviando...' : 'Suscribirse'}
+              </Button>
+              {status === 'ok' && (
+                <p className="text-xs text-green-400">¡Gracias por suscribirte!</p>
+              )}
+              {status === 'error' && (
+                <p className="text-xs text-red-400">{errorMsg}</p>
+              )}
             </form>
           </div>
         </div>

@@ -6,6 +6,9 @@
   .animate-marquee {
     will-change: transform;
   }
+  .animate-pulse-soft {
+    animation: pulse-soft 2.2s ease-in-out infinite;
+  }
 }
 
 :root {
@@ -38,5 +41,10 @@
   --ring: 0 100% 24%;
 
   --radius: 0.5rem;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(165,28,48,0.55); }
+  50% { transform: scale(1.045); box-shadow: 0 0 0 8px rgba(165,28,48,0); }
 }
 

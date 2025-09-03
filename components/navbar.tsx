@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -24,6 +24,26 @@ const navLinks = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const closeTimeoutRef = useRef<number | null>(null)
+
+  // Helpers para manejar apertura/cierre con intención (hover intent)
+  function openDropdown(name: string) {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+    setActiveDropdown(name)
+  }
+
+  function scheduleClose() {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current)
+    }
+    closeTimeoutRef.current = window.setTimeout(() => {
+      setActiveDropdown(null)
+      closeTimeoutRef.current = null
+    }, 220) // pequeño delay para permitir mover el cursor al submenú
+  }
 
   useEffect(() => {
     function handleScroll() {
@@ -62,29 +82,34 @@ export default function Navbar() {
       {/* Navegación en Desktop */}
       <nav className="hidden md:flex items-center space-x-6">
         {navLinks.map((link) => (
-          <div 
-            key={link.name} 
+          <div
+            key={link.name}
             className="relative"
-            onMouseEnter={() => link.submenu && setActiveDropdown(link.name)}
-            onMouseLeave={() => setActiveDropdown(null)}
+            onMouseEnter={() => link.submenu && openDropdown(link.name)}
+            onMouseLeave={() => link.submenu ? scheduleClose() : undefined}
           >
             <Link
               href={link.href}
-              className={`${linkColor} transition-colors font-sans flex items-center`}
+              className={`${linkColor} font-sans flex items-center relative after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-red-700 after:transition-all after:duration-300 hover:after:w-full transition-colors`}
             >
               {link.name}
               {link.submenu && <ChevronDown className="ml-1 h-4 w-4" />}
             </Link>
             
             {link.submenu && activeDropdown === link.name && (
-              <div className="absolute top-full left-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-10">
+              <div
+                className="absolute top-full left-0 mt-1 py-2 w-52 bg-white rounded-lg shadow-xl border border-gray-200 z-10"
+                onMouseEnter={() => openDropdown(link.name)}
+                onMouseLeave={scheduleClose}
+              >
                 {link.submenu.map((sublink) => (
                   <Link
                     key={sublink.name}
                     href={sublink.href}
-                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors font-sans"
+                    className="group block px-4 py-2 text-gray-800 font-sans relative overflow-hidden transition-colors hover:bg-gray-50"
                   >
-                    {sublink.name}
+                    <span className="relative z-10">{sublink.name}</span>
+                    <span className="pointer-events-none absolute left-0 top-0 bottom-0 w-px scale-y-0 group-hover:scale-y-100 origin-top bg-red-700 transition-transform duration-300" />
                   </Link>
                 ))}
               </div>
@@ -95,7 +120,7 @@ export default function Navbar() {
 
       {/* Botón Desktop */}
       <div className="hidden md:block">
-        <Button className="bg-primary hover:bg-primary/80 text-white" asChild>
+  <Button className="bg-primary text-white transition-all duration-300 hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 animate-pulse-soft" asChild>
           <Link href="/contacto">Contactar</Link>
         </Button>
       </div>
@@ -148,7 +173,7 @@ export default function Navbar() {
             </nav>
 
             <div className="mt-8 pt-8 border-t border-[#333]">
-              <Button className="w-full bg-red-700 hover:bg-red-800 text-white" asChild>
+              <Button className="w-full bg-red-700 text-white transition-all duration-300 hover:bg-red-600 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 animate-pulse-soft" asChild>
                 <Link href="/contacto">Contactar</Link>
               </Button>
             </div>

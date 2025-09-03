@@ -2,20 +2,10 @@
 
 import type React from "react"
 
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 
 export default function HeroSection() {
-  const [email, setEmail] = useState("")
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Aquí puedes implementar la lógica para guardar el email
-    console.log("Email enviado:", email)
-    alert("¡Gracias por unirte a nuestra lista de espera!")
-    setEmail("")
-  }
+  // Eliminado formulario de email: ahora solo CTA dobles
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden pt-20">
@@ -48,22 +38,21 @@ export default function HeroSection() {
           Transformamos ideas en realidad digital
         </p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 max-w-xl mx-auto">
-          <Input
-            type="email"
-            placeholder="Tu Email"
-            className="bg-[#2A2A2A] border-[#3A3A3A] text-[#FFFCF2] h-14 px-6 rounded-full"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+        <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-xl mx-auto">
           <Button
-            type="submit"
-            className="bg-[#A51C30] hover:bg-[#8A1727] text-[#FFFCF2] h-14 px-8 rounded-full font-medium"
+            asChild
+            className="bg-[#A51C30] hover:bg-[#8A1727] text-[#FFFCF2] h-14 px-10 rounded-full font-medium shadow-lg shadow-[#A51C30]/30 hover:shadow-[#A51C30]/40 transition-all"
           >
-            Únete a la Lista
+            <a href="/contacto">¡Hablemos!</a>
           </Button>
-        </form>
+          <Button
+            variant="outline"
+            asChild
+            className="h-14 px-10 rounded-full font-medium border-[#FFFCF2] text-[#FFFCF2] hover:text-[#A51C30] hover:bg-[#FFFCF2] bg-transparent transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
+          >
+            <a href="/servicios">Servicios</a>
+          </Button>
+        </div>
       </div>
     </section>
   )

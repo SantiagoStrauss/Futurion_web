@@ -21,6 +21,7 @@ export default function ContactoPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -33,12 +34,23 @@ export default function ContactoPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simulamos el envío del formulario
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+    setErrorMsg(null)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error(data.error || 'Error enviando el mensaje')
+      }
+      setIsSubmitted(true)
+    } catch (err:any) {
+      setErrorMsg(err.message || 'Error inesperado')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const contactInfo = [
@@ -113,7 +125,7 @@ export default function ContactoPage() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6 text-center hover:bg-white/10 transition-all duration-300"
+                  className="bg-white/5 backdrop-blur-sm border-2 border-[#A51C30]/30 rounded-lg p-6 text-center hover:bg-white/10 hover:border-[#A51C30]/50 transition-all duration-300"
                 >
                   <div className="w-12 h-12 bg-[#A51C30] rounded-full flex items-center justify-center mx-auto mb-4">
                     <info.icon className="w-6 h-6 text-white" />
@@ -167,7 +179,7 @@ export default function ContactoPage() {
                     </p>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} id="contact-form" className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <Label htmlFor="name" className="text-black/80">Nombre completo *</Label>
@@ -253,6 +265,11 @@ export default function ContactoPage() {
                       />
                     </div>
 
+                    {errorMsg && (
+                      <div className="text-sm text-red-600 bg-red-50 border border-red-200 p-3 rounded">
+                        {errorMsg}
+                      </div>
+                    )}
                     <Button 
                       type="submit" 
                       disabled={isSubmitting}

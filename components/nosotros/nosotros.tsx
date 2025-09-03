@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Linkedin, Github, Mail } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import Link from "next/link"
 
 const teamMembers = [
   {
@@ -296,12 +297,12 @@ export default function NosotrosComponent() {
             <p className="text-xl md:text-2xl font-sans font-light max-w-3xl mx-auto text-[#FFFCF2]/90 leading-relaxed mb-12">
               Únete a nosotros en este viaje hacia el futuro. Descubre cómo podemos impulsar tu empresa hacia nuevas alturas.
             </p>
-            <button className="inline-flex items-center text-[#FFFCF2] hover:text-[#A51C30] transition-colors duration-300 group border border-[#A51C30] px-8 py-4 rounded-lg hover:bg-[#A51C30]/10">
+            <Link href="/contacto" className="inline-flex items-center text-[#FFFCF2] hover:text-[#A51C30] transition-colors duration-300 group border border-[#A51C30] px-8 py-4 rounded-lg hover:bg-[#A51C30]/10">
               <span className="mr-2 font-serif font-medium text-lg">Contáctanos</span>
               <svg className="h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </button>
+            </Link>
           </motion.div>
         </div>
       </section>

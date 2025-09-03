@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
+import Link from "next/link"
 import { motion } from "framer-motion"
 import {
   Settings,
@@ -204,7 +205,7 @@ export default function OdooComponent() {
       <section className="relative bg-black">
         <div className="relative h-[500px] overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=1920&q=80"
+            src="/odoo.webp?w=1920&q=80"
             alt="Odoo ERP"
             className="w-full h-full object-cover"
           />
@@ -219,7 +220,7 @@ export default function OdooComponent() {
                 />
                 <h1 className="text-5xl font-serif font-light text-[#FFFCF2]">Consultoría y Desarrollo Odoo</h1>
               </div>
-              <p className="text-xl text-[#FFFCF2]/80 max-w-3xl font-sans font-light mb-8">
+              <p className="text-xl text-white max-w-3xl font-sans font-light mb-8">
                 Los servicios de consultoría y desarrollo de Odoo tienen como objetivo apoyar a las empresas con la personalización, 
                 implementación, mantenimiento y actualización de la plataforma Odoo. Como partner certificado de Odoo, 
                 Futurion Partners proporciona una gama completa de servicios relacionados con la plataforma.
@@ -228,19 +229,19 @@ export default function OdooComponent() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-8">
                 <div className="text-center">
                   <div className="text-3xl font-serif font-light text-[#A51C30] mb-1">10+</div>
-                  <div className="text-sm text-[#FFFCF2]/80 font-sans font-light">años de experiencia ERP</div>
+                  <div className="text-sm text-white font-sans font-light">años de experiencia ERP</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-serif font-light text-[#A51C30] mb-1">50+</div>
-                  <div className="text-sm text-[#FFFCF2]/80 font-sans font-light">proyectos ERP exitosos</div>
+                  <div className="text-sm text-white font-sans font-light">proyectos ERP exitosos</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-serif font-light text-[#A51C30] mb-1">15+</div>
-                  <div className="text-sm text-[#FFFCF2]/80 font-sans font-light">países atendidos</div>
+                  <div className="text-sm text-white font-sans font-light">países atendidos</div>
                 </div>
                 <div className="text-center">
                   <div className="text-3xl font-serif font-light text-[#A51C30] mb-1">15+</div>
-                  <div className="text-sm text-[#FFFCF2]/80 font-sans font-light">años en TI</div>
+                  <div className="text-sm text-white font-sans font-light">años en TI</div>
                 </div>
               </div>
             </div>
@@ -479,10 +480,10 @@ export default function OdooComponent() {
               Garantiza el éxito de tu proyecto Odoo con Futurion Partners
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="inline-flex items-center justify-center bg-[#A51C30] hover:bg-[#8A1727] text-[#FFFCF2] px-8 py-3 rounded-lg font-sans font-medium transition-colors">
+              <Link href="/contacto" className="inline-flex items-center justify-center bg-[#A51C30] hover:bg-[#8A1727] text-[#FFFCF2] px-8 py-3 rounded-lg font-sans font-medium transition-colors">
                 Contáctanos
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </button>
+              </Link>
               <button className="inline-flex items-center justify-center border-2 border-[#A51C30] text-[#A51C30] hover:bg-[#A51C30] hover:text-[#FFFCF2] px-8 py-3 rounded-lg font-sans font-medium transition-colors">
                 Ver casos de éxito
                 <UserCheck className="ml-2 h-4 w-4" />

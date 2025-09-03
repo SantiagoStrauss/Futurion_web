@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect, useRef } from "react"
+import Link from "next/link"
 import { motion } from "framer-motion"
 import {
   Globe,
@@ -197,7 +198,7 @@ export default function ServiciosComponent() {
           <div className="max-w-3xl mb-12">
             <h2 className="text-3xl font-serif font-extralight text-black mb-6">Direcciones clave de consultoría tecnológica</h2>
             <p className="text-lg text-black/80 leading-relaxed font-sans font-light">
-              Desde 2010, Futurion Partners ha estado guiando a empresas hacia operaciones más efectivas con soluciones
+              Desde 2024, Futurion Partners ha estado guiando a empresas hacia operaciones más efectivas con soluciones
               tecnológicas personalizadas. Como empresa de consultoría tecnológica, nuestra misión es ayudar a las compañías
               a crear entornos digitales óptimos alineados con sus objetivos de negocio.
             </p>
@@ -263,10 +264,10 @@ export default function ServiciosComponent() {
           <div className="mt-16 text-center">
             <p className="text-xl font-serif font-medium text-[#FFFCF2] mb-4">¿Buscas consultores tecnológicos expertos?</p>
             <p className="text-[#FFFCF2]/70 mb-8 font-sans font-light">Permítenos evaluar tu proyecto ahora</p>
-            <button className="inline-flex items-center bg-[#A51C30] hover:bg-[#8A1727] text-[#FFFCF2] px-8 py-3 rounded-lg font-sans font-medium transition-colors">
+            <Link href="/contacto" className="inline-flex items-center bg-[#A51C30] hover:bg-[#8A1727] text-[#FFFCF2] px-8 py-3 rounded-lg font-sans font-medium transition-colors">
               Contáctanos
               <ArrowRight className="ml-2 h-4 w-4" />
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -353,10 +354,10 @@ export default function ServiciosComponent() {
             <p className="text-xl font-serif font-medium text-[#FFFCF2] mb-4">
               ¿Quieres que tu inversión en software genere resultados tangibles?
             </p>
-            <button className="inline-flex items-center bg-[#A51C30] hover:bg-[#8A1727] text-[#FFFCF2] px-8 py-3 rounded-lg font-sans font-medium transition-colors">
+            <Link href="/contacto" className="inline-flex items-center bg-[#A51C30] hover:bg-[#8A1727] text-[#FFFCF2] px-8 py-3 rounded-lg font-sans font-medium transition-colors">
               Hablemos
               <ArrowRight className="ml-2 h-4 w-4" />
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -433,7 +434,7 @@ export default function ServiciosComponent() {
               },
               {
                 title: "Equipo multidisciplinario",
-                description: "Al asociarte con Futurion Partners, puedes construir tu equipo de proyecto eligiendo entre más de 200 ingenieros de software, arquitectos de soluciones, analistas de negocios y gerentes de proyecto."
+                description: "Al asociarte con Futurion Partners, puedes construir tu equipo de proyecto eligiendo entre ingenieros de software, arquitectos de soluciones, analistas de negocios y gerentes de proyecto."
               },
               {
                 title: "Conocimiento de la industria",
@@ -441,7 +442,7 @@ export default function ServiciosComponent() {
               },
               {
                 title: "Asociación con proveedores globales",
-                description: "Futurion Partners es socio a largo plazo de los principales proveedores de tecnología del mundo, incluidos Microsoft, AWS, Google Cloud y más. Nuestros especialistas pasan por certificación regular."
+                description: "Futurion Partners es socio a largo plazo de los principales proveedores de tecnología del mundo, incluidos Microsoft, AWS, Google Cloud, Cloudflare y más. Nuestros especialistas pasan por certificación regular."
               },
               {
                 title: "Cumplimiento de estándares internacionales",
@@ -478,10 +479,10 @@ export default function ServiciosComponent() {
               Permítenos ayudarte a alcanzar tus objetivos empresariales con soluciones tecnológicas innovadoras
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="inline-flex items-center justify-center bg-[#A51C30] hover:bg-[#8A1727] text-[#FFFCF2] px-8 py-3 rounded-lg font-sans font-medium transition-colors">
+              <Link href="/contacto" className="inline-flex items-center justify-center bg-[#A51C30] hover:bg-[#8A1727] text-[#FFFCF2] px-8 py-3 rounded-lg font-sans font-medium transition-colors">
                 Solicitar consultoría
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </button>
+              </Link>
               <button className="inline-flex items-center justify-center border-2 border-[#A51C30] text-[#A51C30] hover:bg-[#A51C30] hover:text-[#FFFCF2] px-8 py-3 rounded-lg font-sans font-medium transition-colors">
                 Ver casos de éxito
                 <BarChart className="ml-2 h-4 w-4" />
