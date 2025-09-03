@@ -41,7 +41,7 @@ export default function HeroSection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-xl mx-auto">
           <Button
             asChild
-            className="bg-[#A51C30] hover:bg-[#8A1727] text-[#FFFCF2] h-14 px-10 rounded-full font-medium shadow-lg shadow-[#A51C30]/30 hover:shadow-[#A51C30]/40 transition-all"
+            className="bg-[#A51C30] hover:bg-[#8A1727] text-[#FFFCF2] h-14 px-10 rounded-full font-medium shadow-lg shadow-[#A51C30]/30 hover:shadow-[#A51C30]/40 transition-all duration-300 hover:-translate-y-0.5"
           >
             <a href="/contacto">¡Hablemos!</a>
           </Button>
