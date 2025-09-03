@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { z } from 'zod'
 
+export const runtime = 'edge'
+
 const resend = new Resend(process.env.RESEND_API_KEY)
 const FROM_EMAIL = process.env.RESEND_FROM || 'Contacto Futurion <onboarding@resend.dev>'
 const TO_EMAIL = process.env.RESEND_SUBSCRIBE_TO || process.env.RESEND_TO || 'ds.ramosv@globusscreen.com'

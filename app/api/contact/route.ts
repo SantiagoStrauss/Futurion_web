@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { z } from 'zod'
 
+export const runtime = 'edge'
+
 const resend = new Resend(process.env.RESEND_API_KEY)
 // Usa dominio verificado; configurable vía env. Fallback seguro a onboarding si falta
 const FROM_EMAIL = process.env.RESEND_FROM || 'Contacto Futurion <contacto@futurionpartners.co>'
